@@ -85,6 +85,6 @@
   "mongoServer": {
     "host": "localhost",
     "post": 27017,
-    "dbName": "training"
+    "dbName": "bootcamp"
   }
 }
