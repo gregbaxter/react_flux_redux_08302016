@@ -4,41 +4,83 @@ import '../css/styles.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+class ItemListHeaderComponent extends React.Component {
+	render() {
+		return <h1>{this.props.headerText}</h1>;
+	}
+}
+
+class ItemListItemsComponent extends React.Component {
+	render() {
+		return <ul>
+			{this.props.items.map((item, index) =>
+				<li key={index}>{item}</li>
+			)}
+		</ul>;
+	}
+}
+
+class ItemListFormComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			newColor: '',
+		};
+
+		this.onChange = this.onChange.bind(this);
+		this.onClick = this.onClick.bind(this);
+	}
+
+	onChange(e) {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	}
+
+	onClick() {
+		this.props.newItem(this.state.newColor);
+		this.setState({
+			newColor: ''
+		});
+	}
+
+	render() {
+		return <form>
+			<label htmlFor="newColor">New Color:</label>
+			<input type="text" name="newColor" id="newColor"
+				value={this.state.newColor} onChange={this.onChange} />
+			<button type="button" onClick={this.onClick}>Add Color</button>
+		</form>;
+	}
+}
+
 class ItemList extends React.Component {
 
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			newColor: ''
+			items: props.items.concat()
 		};
 
-		this.onChange = this.onChange.bind(this);
+		this.addNewColor = this.addNewColor.bind(this);
 	}
 
-	onChange(e) {
-
+	addNewColor(newColor) {
 		this.setState({
-			[e.target.name]: e.target.value
+			items: this.state.items.concat(newColor)
 		});
-
 	}
+
 
 	render() {
 
 		return <div>
-			<h1>{this.props.headerText}</h1>
-			<ul>
-				{this.props.items.map((item, index) =>
-					<li key={index}>{item}</li>
-				)}
-			</ul>
-			<form>
-				<label htmlFor="newColor">New Color:</label>
-				<input type="text" name="newColor" id="newColor"
-					value={this.state.newColor} onChange={this.onChange} />
-				<button type="button">Add Color</button>
-			</form>
+			<ItemListHeaderComponent headerText={this.props.headerText} />
+			<ItemListItemsComponent items={this.state.items} />
+			<ItemListFormComponent newItem={this.addNewColor} />
 		</div>;
 	}
 
