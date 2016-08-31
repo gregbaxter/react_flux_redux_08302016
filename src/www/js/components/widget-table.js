@@ -12,6 +12,7 @@ export class WidgetTableComponent extends React.Component {
                     <th>Color</th> 
                     <th>Size</th>
                     <th>Quantity</th>
+                    <th>Description</th>
                 </tr>
             </thead>
         <tbody>
@@ -21,6 +22,7 @@ export class WidgetTableComponent extends React.Component {
                     <td>{item.color}</td>
                     <td>{item.size}</td>
                     <td>{item.quantity}</td>
+                    <td>{item.description}</td>
                 </tr>
             )}
         </tbody>
