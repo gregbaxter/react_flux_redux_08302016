@@ -43,10 +43,6 @@ class ListItemComponent extends React.Component {
 
 }
 
-ListItemComponent.propTypes = {
-	item: React.PropTypes.string.isRequired
-};
-
 class ListComponent extends React.Component {
 
 	constructor(props) {
@@ -65,34 +61,16 @@ class ListComponent extends React.Component {
 
 	render() {
 
-		return <div><h1>{this.props.header}</h1><ul>
-			{this.state.items.map(item => <ListItemComponent key={item} item={item} />)}
-		</ul></div>;
-
-	}
-
-	static get propTypes() {
-
-		return {
-			header: React.PropTypes.string,
-			items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
-		};
+		return <ul>
+			{this.state.items.map(item => <ListItemComponent item={item} />)}
+		</ul>;
 
 	}
 
 }
 
-// ListComponent.propTypes = {
-// 	header: React.PropTypes.string,
-// 	items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
-// };
-
-ListComponent.defaultProps = {
-	header: 'My List Component'
-};
-
 
 
 const items = ['first','second','third'];
 
-ReactDOM.render(<ListComponent header="Intuit Rocks!" xitems={items} />, document.querySelector('main'));
+ReactDOM.render(<ListComponent items={items} />, document.querySelector('main'));
