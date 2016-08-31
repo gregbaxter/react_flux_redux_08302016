@@ -32,12 +32,13 @@ export class WidgetForm1Component extends React.Component {
         }
 
 		this.props.newItem(
-            { name: this.state.newName, 
+            { key: -1,
+              name: this.state.newName, 
               color: this.state.newColor, 
               size: this.state.newSize, 
               quantity: this.state.newQty,
-              description: this.state.newDescription }
-            );
+              description: this.state.newDescription
+             });
 		this.setState({
             newName : '',
             newColor : 'Red',
