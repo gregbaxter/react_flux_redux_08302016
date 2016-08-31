@@ -4,47 +4,21 @@ import '../css/styles.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class ListItemComponent extends React.Component {
+const ListItemComponent = (props) => {
 
-	constructor(props) {
-		super(props);
+	const deleteItem = () => {
+		props.onDelete(props.item.id);
+	};
 
-		this.state = {
-			item: props.item
-		};
-
-		this.onChange = this.onChange.bind(this);
-	}
-
-	onChange(e) {
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	}
-
-	componentWillReceiveProps(nextProps) {
-		console.dir(nextProps);
-
-		this.setState({
-			item: nextProps.item
-		});
-	}
-
-
-	render() {
-
-		console.log(this.props.item);
-
-		return <li>
-			<span>{this.props.item}</span>
-			<input type="text" name="item" value={this.state.item} onChange={this.onChange} />
-		</li>;
-	}
+	return <li>
+		<span>{props.item.name}</span>
+		<button type="button" onClick={deleteItem}>Delete</button>
+	</li>;
 
 }
 
 ListItemComponent.propTypes = {
-	item: React.PropTypes.string.isRequired
+	item: React.PropTypes.object.isRequired
 };
 
 class ListComponent extends React.Component {
@@ -56,17 +30,17 @@ class ListComponent extends React.Component {
 			items: props.items.concat()
 		};
 
-		setTimeout(() => {
-			this.setState({
-				items: this.state.items.slice(1)
-			});
-		},3000);
+	}
+
+	deleteItem(itemId) {
+		console.log(itemId);
 	}
 
 	render() {
 
 		return <div><h1>{this.props.header}</h1><ul>
-			{this.state.items.map(item => <ListItemComponent key={item} item={item} />)}
+			{this.state.items.map(item =>
+				<ListItemComponent key={item.id} item={item} onDelete={this.deleteItem} />)}
 		</ul></div>;
 
 	}
@@ -75,7 +49,7 @@ class ListComponent extends React.Component {
 
 		return {
 			header: React.PropTypes.string,
-			items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+			items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
 		};
 
 	}
@@ -93,6 +67,10 @@ ListComponent.defaultProps = {
 
 
 
-const items = ['first','second','third'];
+const items = [
+	{ id: 1, name: 'first' },
+	{ id: 2, name: 'second' },
+	{ id: 3, name: 'third' }
+];
 
-ReactDOM.render(<ListComponent header="Intuit Rocks!" xitems={items} />, document.querySelector('main'));
+ReactDOM.render(<ListComponent header="Intuit Rocks!" items={items} />, document.querySelector('main'));
