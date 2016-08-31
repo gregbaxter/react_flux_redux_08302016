@@ -37,7 +37,11 @@ module.exports = {
           presets: [
             // Babel Relay Plugin path is relative to /src/www/js
             //{ 'plugins': [ '../../../build/babelRelayPlugin' ] },
-            'react', 'es2015', 'stage-0']
+            'react', 'es2015', 'stage-0'],
+          plugins: [
+            //'../../../build/babelRelayPlugin',
+            'transform-decorators-legacy'
+          ]
         }
       },
       // processes JSON files, useful for config files and mock data

@@ -12,6 +12,8 @@ class WidgetComponent extends React.Component {
     constructor(props) {
         super(props);
 
+		
+
 		this.state = {
 			items: props.items.concat()
 		};
@@ -36,10 +38,10 @@ class WidgetComponent extends React.Component {
 }
 
 const widgets = [
-    { name: 'thing-a-ding', color: 'red', size: 'small', quantity: '100'},
-    { name: 'whatchamacallit', color: 'orange', size: 'large', quantity: '200'},
-    { name: 'whoknowswhat', color: 'blue', size: 'medium', quantity: '450'},
-    { name: 'yoo-hoo', color: 'pink', size: 'small', quantity: '50'}
+    { name: 'thing-a-ding', color: 'red', size: 'small', quantity: '100', description: 'Yes it is a real'},
+    { name: 'whatchamacallit', color: 'orange', size: 'large', quantity: '200', description: 'almost forgot it'},
+    { name: 'whoknowswhat', color: 'blue', size: 'medium', quantity: '450', description: 'not me'},
+    { name: 'yoo-hoo', color: 'pink', size: 'small', quantity: '50', description: 'not yahoo, but yoo-hoo'}
 
 ];
 

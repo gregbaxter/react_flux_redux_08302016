@@ -4,48 +4,73 @@ import '../css/styles.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { WidgetHeaderComponent } from './components/widget-header';
-import { WidgetTableComponent } from './components/widget-table';
-import { WidgetForm1Component } from './components/widget-form.1';
+const ListItemComponent = (props) => {
 
-class WidgetComponent extends React.Component {
-    constructor(props) {
-        super(props);
+	const deleteItem = () => {
+		props.onDelete(props.item.id);
+	};
+
+	return <li>
+		<span>{props.item.name}</span>
+		<button type="button" onClick={deleteItem}>Delete</button>
+	</li>;
+
+}
+
+ListItemComponent.propTypes = {
+	item: React.PropTypes.object.isRequired
+};
+
+class ListComponent extends React.Component {
+
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			items: props.items.concat()
 		};
 
-		this.addNewWidget = this.addNewWidget.bind(this);
 	}
 
-	addNewWidget(newWidget) {
-		this.setState({
-			items: this.state.items.concat(newWidget)
-		});
+	deleteItem(itemId) {
+		console.log(itemId);
 	}
 
 	render() {
-		return <div>
-			<WidgetHeaderComponent headerText={this.props.headerText} />
-			<WidgetTableComponent items={this.state.items} />
-			<WidgetForm1Component newItem={this.addNewWidget} />
-		</div>;
+
+		return <div><h1>{this.props.header}</h1><ul>
+			{this.state.items.map(item =>
+				<ListItemComponent key={item.id} item={item} onDelete={this.deleteItem} />)}
+		</ul></div>;
+
+	}
+
+	static get propTypes() {
+
+		return {
+			header: React.PropTypes.string,
+			items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+		};
+
 	}
 
 }
 
-const widgets = [
-    { name: 'thing-a-ding', color: 'red', size: 'small', quantity: '100', description: 'Yes it is a real'},
-    { name: 'whatchamacallit', color: 'orange', size: 'large', quantity: '200', description: 'almost forgot it'},
-    { name: 'whoknowswhat', color: 'blue', size: 'medium', quantity: '450', description: 'not me'},
-    { name: 'yoo-hoo', color: 'pink', size: 'small', quantity: '50', description: 'not yahoo, but yoo-hoo'}
+// ListComponent.propTypes = {
+// 	header: React.PropTypes.string,
+// 	items: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+// };
 
+ListComponent.defaultProps = {
+	header: 'My List Component'
+};
+
+
+
+const items = [
+	{ id: 1, name: 'first' },
+	{ id: 2, name: 'second' },
+	{ id: 3, name: 'third' }
 ];
 
-ReactDOM.render(<WidgetComponent headerText="Widget Table" items={widgets} />, document.querySelector('main'));
-
-
-
-
-
+ReactDOM.render(<ListComponent header="Intuit Rocks!" items={items} />, document.querySelector('main'));
