@@ -1,11 +1,17 @@
+import 'bootstrap-loader';
+import '../css/styles.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-class WidgetTable extends React.Component {
+class HeaderComponent extends React.Component {
+	render() {
+		return <h1>{this.props.headerText}</h1>;
+	}
+}
 
-
-
+class WidgetTableComponent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -65,8 +71,13 @@ class WidgetTable extends React.Component {
             </tbody>
             </table>
             </div>
+        </div>
+    }
+}
 
-            <form>
+class WidgetFormComponent extends React.Component {
+    render() {
+        return <form>
             <fieldset>
                 <legend>New Widget</legend>
                 <p><label htmlFor='newName'>Name:</label> 
@@ -88,11 +99,25 @@ class WidgetTable extends React.Component {
                 <button type='button' onClick={this.onClick}>Add New Widget</button>
             </fieldset>
             </form>
-
-
-        </div>
     }
 }
+
+const widgets = [
+    { name: 'thing-a-ding', color: 'red', size: 'small', quantity: '100'},
+    { name: 'whatchamacallit', color: 'orange', size: 'large', quantity: '200'},
+    { name: 'whoknowswhat', color: 'blue', size: 'medium', quantity: '450'},
+    { name: 'yoo-hoo', color: 'pink', size: 'small', quantity: '50'}
+
+];
+
+ReactDOM.render(<HeaderComponent headerText='Widget Table'/>, document.querySelector('main'));
+ReactDOM.render(<WidgetTable items={widgets}/>, document.querySelector('main'));
+ReactDOM.render(<WidgetFormComponent />, document.querySelector('main'));
+
+
+
+//------------------------------------------------------------------
+
 
 class ItemList extends React.Component {
 
@@ -151,15 +176,6 @@ const colors = [ 'red', 'white', 'gold', 'green', 'saffron', 'blue'];
 
 //  ReactDOM.render(<ItemList headerText='Gregs List of National Colors' items={colors}/>, document.querySelector('main'));
 
-const widgets = [
-    { name: 'thing-a-ding', color: 'red', size: 'small', quantity: '100'},
-    { name: 'whatchamacallit', color: 'orange', size: 'large', quantity: '200'},
-    { name: 'whoknowswhat', color: 'blue', size: 'medium', quantity: '450'},
-    { name: 'yoo-hoo', color: 'pink', size: 'small', quantity: '50'}
-
-];
-
-ReactDOM.render(<WidgetTable headerText='Widget Table' items={widgets}/>, document.querySelector('main'));
 
 
 
